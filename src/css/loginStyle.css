@@ -1,0 +1,184 @@
+/* Body setup */
+body {
+    background-image: url('../images/logoUDM.png');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Form container with enhanced text effects */
+form {
+    position: relative;
+    width: 500px;
+    padding: 40px;
+    background: linear-gradient(145deg, #ffffff, #f1f1f1);
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    opacity: 0.95;
+    transition: all 0.4s ease-in-out;
+}
+
+form:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+/* Welcome label - larger font size with text shadow for effect */
+label[name=welcome] {
+    font-family: 'Poppins', sans-serif;
+    font-size: 36px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+}
+
+/* "Log as" label - better contrast, modern font */
+label[name=logAs] {
+    font-size: 18px;
+    color: #555;
+    margin-top: 15px;
+    text-align: center;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* Select box - clean with focus effect */
+select[name=user_types] {
+    padding: 12px;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
+}
+
+select[name=user_types]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+    background-color: #fff;
+}
+
+/* Username and password labels - aligned left, bold for emphasis */
+label[name=username],
+label[name=password] {
+    font-size: 16px;
+    color: #555;
+    width: 100%;
+    margin-top: 20px;
+    text-align: left;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* Input fields - modernized with smooth focus transitions */
+input[name=username],
+input[name=password] {
+    padding: 12px;
+    border-radius: 8px;
+    width: 100%;
+    border: 1px solid #ccc;
+    margin-top: 8px;
+    font-size: 16px;
+    color: #333;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9f9f9;
+}
+
+input[name=username]:focus,
+input[name=password]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+}
+
+/* Submit button with enhanced text and focus effects */
+input[name=submit] {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 5px 10px rgba(0, 123, 255, 0.2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+
+input[name=submit]:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px);
+}
+
+input[name=submit]:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Forgot password link - smooth hover effect */
+a[name=frgtpass] {
+    color: #007bff;
+    text-decoration: none;
+    margin-top: 15px;
+    font-size: 14px;
+    transition: color 0.3s ease;
+    font-weight: 500;
+    text-transform: lowercase;
+}
+
+a[name=frgtpass]:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+/* Added clarity for input fields with placeholder enhancements */
+input[type="text"], input[type="password"], select {
+    font-size: 16px;
+    padding: 12px;
+    width: 100%;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    transition: 0.3s ease;
+    color: #333;
+    letter-spacing: 0.5px;
+}
+
+input[type="text"]:focus, input[type="password"]:focus, select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+    background-color: #fff;
+}
+
+/* Enhanced form text input field placeholders */
+input::placeholder, select::placeholder {
+    color: #aaa;
+    font-style: italic;
+    opacity: 0.8;
+}

@@ -1,0 +1,62 @@
+
+.nav-link {
+  padding: 10px;
+  text-decoration: none;
+  color: #000;
+  display: block;
+  font-weight: bold;
+}
+
+.nav-link:hover {
+  background-color: black;
+  border-radius: 8px;
+  color: white;
+}
+
+.nav-item [name="dashboard"] {
+  border-radius: 8px;
+  margin-bottom: 4px;
+  background-color: blue;
+  color: white;
+
+}
+
+.nav-item [name="dashboard"]:hover {
+  border-radius: 8px;
+
+  background-color: rgb(0, 0, 175);
+  color: rgb(255, 255, 255);
+
+}
+
+.btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: blue;
+  color: white;
+  transition: background-color 0.3s;/
+}
+
+.btn:hover {
+  background-color: tomato;
+  color: blue;
+}
+
+.btn-primary {
+  cursor: not-allowed;
+
+}
+
+.container {
+  height: 150px;
+  /* Set a fixed height for the container */
+  overflow: auto;
+  /* Enable vertical scroll when content exceeds the height */
+}

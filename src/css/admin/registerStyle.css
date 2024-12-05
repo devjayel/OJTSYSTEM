@@ -1,0 +1,137 @@
+/*
+.body {
+   /* background-color: black; 
+     background: url('../src/images/landingpagebg.jpg');
+     background-size:auto;
+    /*background-position: center;
+     background-attachment: fixed;
+     background-repeat: no-repeat;
+}*/
+
+.nav-link{
+    text-align: left;
+    padding: 3px 10px;
+    text-decoration: none;
+    color: #000;
+    display: block;
+    font-weight: bold;
+  }
+  .nav-link:hover{
+            background-color: blue;
+            border-radius: 8px;
+            color: white;
+  }
+  .nav-item [name="register"]{
+           border-radius: 8px;
+           margin-top: 5px;
+           margin-bottom: 10px;
+            background-color: blue;
+            color: white;
+            
+  }
+  .nav-item [name="register"]:hover{
+    border-radius: 8px;
+     background-color: rgb(0, 0, 175);
+     color: rgb(255, 255, 255);
+     
+  }
+  a [name="logout"]{
+    padding: 50px;
+    border-radius: 8px;
+    margin-top: 5px;
+    margin-bottom: 10px;
+     background-color: blue;
+     color: white;
+     
+}
+  .btn{
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: blue; 
+    color: white;
+    transition: background-color 0.3s; /
+  }
+  .btn:hover{
+    background-color: yellow;
+    color: blue;
+  }
+form {
+    position:relative; left:260px; top:40px;
+    width: 500px;
+    height: 430px;
+    display: flex;
+    flex-direction: column;
+    padding: 0 15px 0 15px;
+    background-color: rgba(206,206,211,1);;
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    opacity: 97%;
+}
+label[name=welcome]{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    font-size: 30px;
+    padding-top: 20px;
+    text-align: center;
+    padding-bottom: 10px;
+}
+label[name=regAs]{
+    position: relative;
+    font-size: 20px;
+    top: 13px;
+    left: 135px;
+
+}
+select[name=user_types]{
+    position: relative;
+    border-radius: 5px;
+    font-size: 17px;
+    bottom: 12px;
+
+}
+label[name=username]{
+    padding: 5px;
+    position: relative;
+    left: 35px;
+}
+label[name=password]{
+    padding: 5px;
+    position: relative;
+    left: 35px;
+}
+#usertype{
+    position: relative;
+    width: 100px;
+    left: 250px;
+
+}
+
+input[name=username]{
+    padding: 10px;
+    border-radius:10px ;
+    width: 400px;
+    position: relative;
+    left: 40px;
+}
+input[name=password]{
+    padding: 10px;
+    border-radius:10px ;
+    width: 400px;
+    position: relative;
+    left: 40px;
+}
+input[name=submit]{
+    width: 80px;
+    position: relative;
+    bottom: 5px;
+    left:200px;
+    padding: 10px;
+    background-color: yellow;
+    border-radius: 5px;
+}

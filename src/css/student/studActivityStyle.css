@@ -1,0 +1,175 @@
+.nav-link{
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+  color: #000;
+  display: block;
+  font-weight: bold;
+}
+.nav-link:hover{
+          background-color: blue;
+          border-radius: 8px;
+          color: white;
+}
+.nav-item [name="activity"]{
+         border-radius: 8px;
+         margin-top: 5px;
+         margin-bottom: 10px;
+          background-color: blue;
+          color: white;
+          
+}
+.nav-item [name="activity"]:hover{
+  border-radius: 8px;
+   background-color: rgb(0, 0, 175);
+   color: rgb(255, 255, 255);
+   
+}
+.btn{
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  background-color: blue; 
+  color: white;
+  transition: background-color 0.3s; /
+}
+.btn:hover{
+  background-color: yellow;
+  color: blue;
+}
+.Req-button {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    cursor:not-allowed;
+    border: none;
+    border-radius: 5px;
+    background-color: blue; 
+    color: white;
+    transition: background-color 0.3s; 
+  }
+
+  /* Change button background color on hover */
+  .Req-button:hover {
+    background-color: yellow;
+    color: blue;
+  }
+  input[name="query"]{
+    position: absolute;
+    padding: 10px;
+    top: 25;
+    right: 10px;
+    border-radius: 5px;
+    border-color: blue;
+  }
+  .reqlist-container {
+    position: relative;
+    top: 20px;
+    background-color: white; 
+    color: black; 
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid rgb(197, 197, 197);
+    text-align: left;
+    backdrop-filter: 10px;
+   
+    height:450px ; /* Set a fixed height for the container */
+    overflow: auto; /* Enable vertical scroll when content exceeds the height */
+    border: 1px solid #ccc;
+    padding: 10px;
+    
+  }
+
+  /* Additional styling for links within the container */
+  .reqlist-container a {
+    color: black; /* White text color for links */
+    text-decoration: none;
+  }
+  .reqlist-container a:hover {
+    color: blue; /* White text color for links */
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .req-list1 {
+    position: relative;
+    height: 50px ;
+    background-color: white; 
+    color: black; 
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid rgb(197, 197, 197);
+    text-align: left;
+    backdrop-filter: 10px;
+    margin-bottom: 5px;
+  }
+  .req-list2 {
+    position: relative;
+    height: 50px ;
+    background-color: white; 
+    color: black; 
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid rgb(197, 197, 197);
+    text-align: left;
+    backdrop-filter: 10px;
+    margin-bottom: 5px;
+  }
+  .req-list3 {
+    position: relative;
+    height: 50px ;
+    background-color: white; 
+    color: black; 
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid rgb(197, 197, 197);
+    text-align: left;
+    backdrop-filter: 10px;
+    margin-bottom: 5px;
+  }
+  .req-list4 {
+    position: relative;
+    height: 50px ;
+    background-color: white; 
+    color: black; 
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid rgb(197, 197, 197);
+    text-align: left;
+    backdrop-filter: 10px;
+    margin-bottom: 5px;
+  }
+  .req-list5 {
+    position: relative;
+    height: 50px ;
+    background-color: white; 
+    color: black; 
+    padding: 10px;
+    border-radius: 8px;
+    border: 2px solid rgb(197, 197, 197);
+    text-align: left;
+    backdrop-filter: 10px;
+    margin-bottom: 5px;
+  }
+  h5{
+    position: relative;
+    top: -15px;
+    color: rgb(109, 109, 109)
+  }
+  label[name="status"]{
+  position: absolute;
+  right: 150px;
+  top: 20px;
+  } 
+  .btn-primary{
+    cursor: not-allowed;
+
+  }
