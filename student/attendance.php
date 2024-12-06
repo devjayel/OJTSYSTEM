@@ -13,11 +13,11 @@ $check_attendance->execute();
 $result = $check_attendance->get_result();
 $attendance = $result->fetch_assoc();
 
-
-$has_timein = true;
-$has_breakin = true; 
-$has_breakout = true;
-$has_timeout = true;
+// Set attendance flags based on database values
+$has_timein = !empty($attendance['clockIn']);
+$has_breakin = !empty($attendance['breakIn']);
+$has_breakout = !empty($attendance['breakOut']);
+$has_timeout = !empty($attendance['clockOut']);
 
 
 function reverseGeocode($lat, $long, $apiKey)
@@ -392,10 +392,10 @@ function reverseGeocode($lat, $long, $apiKey)
             // Validate the location
             const distance = calculateDistance(userLat, userLong, schoolLat, schoolLong);
             if (distance > allowedRadius) {
-                document.querySelector("#time_in").disabled = false;
-            } else {
                 alert("You are outside the allowed area. Attendance cannot be recorded.");
                 document.querySelector("#time_in").disabled = true;
+            } else {
+                document.querySelector("#time_in").disabled = false;
             }
         }
 
