@@ -2,12 +2,50 @@
 session_start();
 include "../include/connection.php";
 
+function reverseGeocode($lat, $long){
+    // LocationIQ Reverse Geocoding API endpoint
+    $apiEndpoint = 'https://us1.locationiq.com/v1/reverse.php';
+
+    // Prepare parameters
+    $params = [
+        'key' => "pk.d8d3ca397b99f97ab437ee33354cda16",
+        'lat' => $lat,
+        'lon' => $long,
+        'format' => 'json',
+    ];
+
+    // Build the query string
+    $queryString = http_build_query($params);
+
+    // Final URL
+    $url = $apiEndpoint . '?' . $queryString;
+
+    // Make a request to the API
+    $response = file_get_contents($url);
+
+    // Decode JSON response
+    $data = json_decode($response, true);
+
+    // Check if the request was successful
+    if (!empty($data['display_name'])) {
+        // Extract the formatted address
+        $formattedAddress = $data['display_name'];
+
+        return $formattedAddress;
+    } else {
+        // Handle errors
+        return 'Error in reverse geocoding';
+    }
+}
+
+
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $student_id = $_POST['student_id'];
     $status = $_POST['status'];
     $image = $_POST['image'];
     $lat = $_POST['lat'];
     $long = $_POST['long'];
+    $location = $_POST["location"];
     $date = date("Y-m-d");
     $time = date("H:i:s");
 
@@ -16,6 +54,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     if (!file_exists($upload_dir)) {
         mkdir($upload_dir, 0777, true);
     }
+
+    // Get reverse location via lat and long
+    $location = reverseGeocode($lat, $long);
+
     
     // Save image to folder
     $img = str_replace('data:image/jpeg;base64,', '', $image);
@@ -75,34 +117,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $day = date('l', strtotime($date));
     // Update attendance based on status
     switch($status) {
-      case 'time_in':
+        case 'time_in':
             $stmt = $conn->prepare("INSERT INTO attendance (studentid, date, day, clockIn, latitude, longitude, location, dateTimeCreated) 
-                                  VALUES (?, ?, ?, ?, ?, ?, 'Location placeholder', NOW())");
-            $stmt->bind_param("ssssdd", $student_id, $date, $day, $time, $lat, $long);
+                                  VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+            $stmt->bind_param("ssssdds", $student_id, $date, $day, $time, $lat, $long, $location);
             break;
-            
+    
         case 'lunch_in':
             $stmt = $conn->prepare("UPDATE attendance 
                                   SET breakIn = ?, 
                                       latitude = ?, 
                                       longitude = ?, 
-                                      location = 'Location placeholder',
+                                      location = ?,
                                       dateTimeUpdated = NOW() 
                                   WHERE studentid = ? AND date = ?");
-            $stmt->bind_param("sddss", $time, $lat, $long, $student_id, $date);
+            $stmt->bind_param("sddsss", $time, $lat, $long, $location, $student_id, $date);
             break;
-            
+    
         case 'lunch_out':
             $stmt = $conn->prepare("UPDATE attendance 
                                   SET breakOut = ?, 
                                       latitude = ?, 
                                       longitude = ?, 
-                                      location = 'Location placeholder',
+                                      location = ?,
                                       dateTimeUpdated = NOW() 
                                   WHERE studentid = ? AND date = ?");
-            $stmt->bind_param("sddss", $time, $lat, $long, $student_id, $date);
+            $stmt->bind_param("sddsss", $time, $lat, $long, $location, $student_id, $date);
             break;
-            
+    
         case 'time_out':
             // Calculate total hours
             $stmt_hours = $conn->prepare("SELECT clockIn, breakIn, breakOut FROM attendance WHERE studentid = ? AND date = ?");
@@ -110,14 +152,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $stmt_hours->execute();
             $result_hours = $stmt_hours->get_result();
             $row_hours = $result_hours->fetch_assoc();
-            
+    
             $total_hrs = 0;
             if ($row_hours) {
                 $clock_in = strtotime($row_hours['clockIn']);
                 $break_in = strtotime($row_hours['breakIn']);
                 $break_out = strtotime($row_hours['breakOut']);
                 $clock_out = strtotime($time);
-                
+    
                 // Calculate work hours excluding break time
                 if ($break_in && $break_out) {
                     $break_duration = $break_out - $break_in;
@@ -127,19 +169,20 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     $total_hrs = ($clock_out - $clock_in) / 3600;
                 }
             }
-            
+    
             $stmt = $conn->prepare("UPDATE attendance 
                                   SET clockOut = ?, 
                                       latitude = ?, 
                                       longitude = ?, 
-                                      location = 'Location placeholder',
+                                      location = ?,
                                       totalHrs = ?,
                                       dateTimeUpdated = NOW() 
                                   WHERE studentid = ? AND date = ?");
-            $stmt->bind_param("sdddss", $time, $lat, $long, $total_hrs, $student_id, $date);
+            $stmt->bind_param("sdddsss", $time, $lat, $long, $location, $total_hrs, $student_id, $date);
             $stmt_hours->close();
             break;
     }
+    
     
     if ($stmt->execute()) {
         echo "<script>alert('Attendance recorded successfully'); window.location.href='attendance.php';</script>";
