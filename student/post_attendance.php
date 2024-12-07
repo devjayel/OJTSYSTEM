@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "../include/connection.php";
+date_default_timezone_set('Asia/Manila');
 
 function reverseGeocode($lat, $long){
     // LocationIQ Reverse Geocoding API endpoint

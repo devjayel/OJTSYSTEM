@@ -6,19 +6,24 @@ include "../include/session.php";
 include "../include/connection.php";
 
 // Check attendance status for today
-$date = date("M-d-Y");
-$check_attendance = $conn->prepare("SELECT clockIn, breakIn, breakOut, clockOut FROM attendance WHERE studentid = ? AND date = ?");
+$date = date("Y-m-d");
+$check_attendance = $conn->prepare("SELECT clockIn, breakIn, breakOut, clockOut FROM attendance WHERE `studentid` = ? AND `date` = ?");
 $check_attendance->bind_param("ss", $student_id, $date);
 $check_attendance->execute();
 $result = $check_attendance->get_result();
 $attendance = $result->fetch_assoc();
 
 // Set attendance flags based on database values
-$has_timein = !empty($attendance['clockIn']);
-$has_breakin = !empty($attendance['breakIn']);
-$has_breakout = !empty($attendance['breakOut']);
-$has_timeout = !empty($attendance['clockOut']);
+$has_timein = !empty($attendance['clockIn']) && $attendance['clockIn'] != '00:00:00.000000'; // Time in recorded
+$has_breakin = !empty($attendance['breakIn']) && $attendance['breakIn'] != '00:00:00.000000'; // Lunch in recorded  
+$has_breakout = !empty($attendance['breakOut']) && $attendance['breakOut'] != '00:00:00.000000'; // Lunch out recorded
+$has_timeout = !empty($attendance['clockOut']) && $attendance['clockOut'] != '00:00:00.000000'; // Time out recorded
 
+// Button display logic
+$show_timein = !$has_timein; // Show if no time in yet
+$show_breakin = $has_timein && !$has_breakin; // Show if time in but no lunch in
+$show_breakout = $has_breakin && !$has_breakout; // Show if lunch in but no lunch out  
+$show_timeout = $has_breakout && !$has_timeout; // Show if lunch out but no time out
 
 function reverseGeocode($lat, $long, $apiKey)
 {
@@ -271,19 +276,19 @@ function reverseGeocode($lat, $long, $apiKey)
                                                 <input type="hidden" name="lat" id="latitude">
                                                 <input type="hidden" name="long" id="longitude">
                                                 <button class="btn btn-primary d-block" id="time_in" name="time_in"
-                                                    type="submit" <?php echo $has_timein ? 'disabled' : ''; ?>>Time in&nbsp;</button>
+                                                    type="submit" <?php echo !$show_timein ? 'disabled' : ''; ?>>Time in&nbsp;</button>
                                             </div>
                                             <div class="mb-3">
                                                 <button class="btn btn-primary" id="lunch_in" name="lunch_in"
-                                                    type="submit" <?php echo (!$has_timein || $has_breakin) ? 'disabled' : ''; ?>>Lunch In&nbsp;</button>
+                                                    type="submit" <?php echo !$show_breakin ? 'disabled' : ''; ?>>Lunch In&nbsp;</button>
                                             </div>
                                             <div class="mb-3">
                                                 <button class="btn btn-primary" id="lunch_out" name="lunch_out"
-                                                    type="submit" <?php echo (!$has_breakin || $has_breakout) ? 'disabled' : ''; ?>>Lunch out&nbsp;</button>
+                                                    type="submit" <?php echo !$show_breakout ? 'disabled' : ''; ?>>Lunch out&nbsp;</button>
                                             </div>
                                             <div class="mb-3">
                                                 <button class="btn btn-primary" id="time_out" name="time_out"
-                                                    type="submit" <?php echo (!$has_timein || $has_timeout) ? 'disabled' : ''; ?>>Time out</button>
+                                                    type="submit" <?php echo !$show_timeout ? 'disabled' : ''; ?>>Time out</button>
                                             </div>
                                         </div>
                                     </div>
@@ -393,9 +398,9 @@ function reverseGeocode($lat, $long, $apiKey)
             const distance = calculateDistance(userLat, userLong, schoolLat, schoolLong);
             if (distance > allowedRadius) {
                 alert("You are outside the allowed area. Attendance cannot be recorded.");
-                document.querySelector("#time_in").disabled = true;
+                //document.querySelector("#time_in").disabled = true;
             } else {
-                document.querySelector("#time_in").disabled = false;
+                //document.querySelector("#time_in").disabled = false;
             }
         }
 
