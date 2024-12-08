@@ -46,7 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $image = $_POST['image'];
     $lat = $_POST['lat'];
     $long = $_POST['long'];
-    $location = $_POST["location"];
     $date = date("Y-m-d");
     $time = date("H:i:s");
 
