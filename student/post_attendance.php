@@ -119,43 +119,37 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
     // Update attendance based on status
     switch($status) {
         case 'time_in':
-            $stmt = mysqli_prepare($conn, "INSERT INTO attendance (studentid, date, day, clockIn, latitude, longitude, location, dateTimeCreated) 
-                                       VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
-            mysqli_stmt_bind_param($stmt, "ssssdds", $student_id, $date, $day, $time, $lat, $long, $location);
-            mysqli_stmt_execute($stmt);
+            $sql = "INSERT INTO attendance (studentid, date, day, clockIn, latitude, longitude, location, dateTimeCreated) 
+                VALUES ('$student_id', '$date', '$day', '$time', $lat, $long, '$location', NOW())";
+            mysqli_query($conn, $sql);
             break;
 
         case 'lunch_in':
-            $stmt = mysqli_prepare($conn, "UPDATE attendance 
-                                       SET breakIn = ?, 
-                                           latitude = ?, 
-                                           longitude = ?, 
-                                           location = ?,
-                                           dateTimeUpdated = NOW() 
-                                       WHERE studentid = ? AND date = ?");
-            mysqli_stmt_bind_param($stmt, "sddsss", $time, $lat, $long, $location, $student_id, $date);
-            mysqli_stmt_execute($stmt);
+            $sql = "UPDATE attendance 
+                SET breakIn = '$time', 
+                    latitude = $lat, 
+                    longitude = $long, 
+                    location = '$location',
+                    dateTimeUpdated = NOW() 
+                WHERE studentid = '$student_id' AND date = '$date'";
+            mysqli_query($conn, $sql);
             break;
 
         case 'lunch_out':
-            $stmt = mysqli_prepare($conn, "UPDATE attendance 
-                                       SET breakOut = ?, 
-                                           latitude = ?, 
-                                           longitude = ?, 
-                                           location = ?,
-                                           dateTimeUpdated = NOW() 
-                                       WHERE studentid = ? AND date = ?");
-            mysqli_stmt_bind_param($stmt, "sddsss", $time, $lat, $long, $location, $student_id, $date);
-            mysqli_stmt_execute($stmt);
+            $sql = "UPDATE attendance 
+                SET breakOut = '$time', 
+                    latitude = $lat, 
+                    longitude = $long, 
+                    location = '$location',
+                    dateTimeUpdated = NOW() 
+                WHERE studentid = '$student_id' AND date = '$date'";
+            mysqli_query($conn, $sql);
             break;
 
         case 'time_out':
-            // Calculate total hours
-            $stmt_hours = mysqli_prepare($conn, "SELECT clockIn, breakIn, breakOut FROM attendance WHERE studentid = ? AND date = ?");
-            mysqli_stmt_bind_param($stmt_hours, "ss", $student_id, $date);
-            mysqli_stmt_execute($stmt_hours);
-            $result_hours = mysqli_stmt_get_result($stmt_hours);
-
+            // Fetch existing times
+            $sql_hours = "SELECT clockIn, breakIn, breakOut FROM attendance WHERE studentid = '$student_id' AND date = '$date'";
+            $result_hours = mysqli_query($conn, $sql_hours);
             $row_hours = mysqli_fetch_assoc($result_hours);
 
             $total_hrs = 0;
@@ -175,19 +169,22 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
                 }
             }
 
-            $stmt = mysqli_prepare($conn, "UPDATE attendance 
-                                       SET clockOut = ?, 
-                                           latitude = ?, 
-                                           longitude = ?, 
-                                           location = ?,
-                                           totalHrs = ?,
-                                           dateTimeUpdated = NOW() 
-                                       WHERE studentid = ? AND date = ?");
-            mysqli_stmt_bind_param($stmt, "sdddsss", $time, $lat, $long, $location, $total_hrs, $student_id, $date);
-            mysqli_stmt_execute($stmt);
-            mysqli_stmt_close($stmt_hours);
+            // Update attendance with clockOut and totalHrs
+            $sql = "UPDATE attendance 
+                SET clockOut = '$time', 
+                    latitude = $lat, 
+                    longitude = $long, 
+                    location = '$location',
+                    totalHrs = $total_hrs,
+                    dateTimeUpdated = NOW() 
+                WHERE studentid = '$student_id' AND date = '$date'";
+            mysqli_query($conn, $sql);
             break;
     }
+
+    // Close the connection if done
+    mysqli_close($conn);
+
 
     // Close the statement to free up resources
     if(isset($stmt)) {
