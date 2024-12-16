@@ -182,17 +182,6 @@ if($_SERVER["REQUEST_METHOD"] === "POST") {
             break;
     }
 
-    // Close the connection if done
-    mysqli_close($conn);
-
-
-    // Close the statement to free up resources
-    if(isset($stmt)) {
-        mysqli_stmt_close($stmt);
-    }
-
-
-
     if($stmt->execute()) {
         echo "<script>alert('Attendance recorded successfully'); window.location.href='attendance.php';</script>";
     } else {
