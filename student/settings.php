@@ -440,7 +440,7 @@ if (isset($_POST['submit'])) {
     $email = $_POST["email"];
     $college = $_POST["college"];
     $year_course = $_POST["year_course"];
-    $birth_date = DateTime::createFromFormat('Y-m-d', $_POST['birth_date'])->format('Y-m-d');
+    $birth_date = date('Y-m-d', strtotime($_POST['birth_date']));
     $gender = $_POST["gender"];
     $status = 1;
 
