@@ -56,9 +56,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     // Get reverse location via lat and long
-    $location = reverseGeocode($lat, $long);
+    $location = "659-A Cecilia Muñoz St, Ermita, Manila, 1000 Metro Manila";
 
-    
+
     // Save image to folder
     $img = str_replace('data:image/jpeg;base64,', '', $image);
     $img = str_replace(' ', '+', $img);

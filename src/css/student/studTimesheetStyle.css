@@ -1,3 +1,5 @@
+
+
 .nav-link{
   text-align: center;
   padding: 10px;
@@ -7,7 +9,7 @@
   font-weight: bold;
 }
 .nav-link:hover{
-          background-color: blue;
+          background-color: rgb(0,87,22);
           border-radius: 8px;
           color: white;
 }
@@ -15,13 +17,13 @@
          border-radius: 8px;
          margin-top: 5px;
          margin-bottom: 10px;
-          background-color: blue;
+          background-color: rgb(0,87,22);
           color: white;
           
 }
 .nav-item [name="attendance"]:hover{
   border-radius: 8px;
-   background-color: rgb(0, 0, 175);
+   background-color:  rgb(0,87,22);
    color: rgb(255, 255, 255);
    
 }
@@ -35,13 +37,13 @@
   cursor: pointer;
   border: none;
   border-radius: 5px;
-  background-color: blue; 
+  background-color: rgb(0,87,22); 
   color: white;
   transition: background-color 0.3s; /
 }
 .btn:hover{
   background-color: yellow;
-  color: blue;
+  color: rgb(0,87,22);
 }
 .Req-button {
     padding: 10px 20px;
@@ -53,7 +55,7 @@
     cursor:not-allowed;
     border: none;
     border-radius: 5px;
-    background-color: blue; 
+    background-color: rgb(0,87,22); 
     color: white;
     transition: background-color 0.3s; 
   }
@@ -61,7 +63,7 @@
   /* Change button background color on hover */
   .Req-button:hover {
     background-color: yellow;
-    color: blue;
+    color: rgb(0,87,22);
   }
   input[name="query"]{
     position: absolute;
@@ -69,7 +71,7 @@
     top: 25;
     right: 10px;
     border-radius: 5px;
-    border-color: blue;
+    border-color: rgb(0,87,22);
   }
   .reqlist-container {
     position: relative;
